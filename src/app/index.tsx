@@ -1,12 +1,24 @@
 import { CategoryButton } from '@/components/category-button';
 import { Header } from '@/components/header';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FlatList, SectionList, Text, View } from 'react-native';
 import { CATEGORIES, MENU } from '../../utils/data/products';
 import { Product } from '@/components/product';
 
 export default function App() {
+  const sectionListRef = useRef<SectionList>(null);
   const [selectedItem, setSelectedItem] = useState(CATEGORIES[0]);
+
+  function handleSelectCategory(categoryName: string) {
+    setSelectedItem(categoryName);
+
+    const index = CATEGORIES.indexOf(categoryName);
+    sectionListRef.current?.scrollToLocation({
+      animated: true,
+      sectionIndex: index,
+      itemIndex: 0,
+    });
+  }
 
   return (
     <View className='flex-1 pt-8'>
@@ -22,13 +34,14 @@ export default function App() {
           <CategoryButton
             title={item}
             isSelected={selectedItem === item}
-            onPress={() => setSelectedItem(item)}
+            onPress={() => handleSelectCategory(item)}
           />
         )}
       />
 
       <SectionList
         sections={MENU}
+        ref={sectionListRef}
         className='flex-1 p-5'
         keyExtractor={(item) => item.id}
         stickySectionHeadersEnabled={false}
