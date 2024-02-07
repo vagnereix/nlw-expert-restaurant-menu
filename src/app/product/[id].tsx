@@ -4,6 +4,7 @@ import { PRODUCTS } from '../../../utils/data/products';
 import { formatCurrency } from '@/lib/fomatters';
 import { Button } from '@/components/button';
 import { Feather } from '@expo/vector-icons';
+import { LinkButton } from '@/components/link-button';
 
 export default function ProductScreen({}) {
   const { id } = useLocalSearchParams();
@@ -48,6 +49,8 @@ export default function ProductScreen({}) {
 
           <Button.Text>Adicionar ao carrinho</Button.Text>
         </Button>
+
+        <LinkButton title='Voltar' href='/' />
       </View>
     </View>
   );
