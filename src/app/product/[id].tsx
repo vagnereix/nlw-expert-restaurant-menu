@@ -1,15 +1,23 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Image, Text, View } from 'react-native';
 import { PRODUCTS } from '../../../utils/data/products';
 import { formatCurrency } from '@/lib/fomatters';
 import { Button } from '@/components/button';
 import { Feather } from '@expo/vector-icons';
 import { LinkButton } from '@/components/link-button';
+import { ProductCartProps, useCartStore } from '@/stores/cart-store';
 
 export default function ProductScreen({}) {
+  const { add } = useCartStore();
+  const { navigate, goBack } = useNavigation();
   const { id } = useLocalSearchParams();
 
   const product = PRODUCTS.find((product) => product.id === id);
+
+  function handleAddToCart() {
+    add(product as ProductCartProps);
+    goBack();
+  }
 
   return (
     <View className='flex-1'>
@@ -39,10 +47,7 @@ export default function ProductScreen({}) {
       </View>
 
       <View className='p-5 pb-8 gap-5'>
-        <Button
-          className='bg-lime-400'
-          onPress={() => alert('Adicionado ao carrinho')}
-        >
+        <Button className='bg-lime-400' onPress={handleAddToCart}>
           <Button.Icon>
             <Feather name='plus-circle' size={20} />
           </Button.Icon>
