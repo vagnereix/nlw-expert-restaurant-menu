@@ -6,13 +6,17 @@ import { Product } from '@/components/product';
 import { formatCurrency } from '@/lib/fomatters';
 import { useCartStore } from '@/stores/cart-store';
 import { Feather } from '@expo/vector-icons';
+import { Link, useNavigation } from 'expo-router';
 import { ScrollView, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Cart() {
-  const [products, removeProduct] = useCartStore((state) => [
+  const { navigate } = useNavigation();
+
+  const [products, removeProduct, addProduct] = useCartStore((state) => [
     state.products,
     state.remove,
+    state.add,
   ]);
 
   const total = formatCurrency(
@@ -29,12 +33,18 @@ export default function Cart() {
             {products.length ? (
               <View className='border-b border-slate-700'>
                 {products.map((product) => (
-                  <Product
+                  <Link
+                    asChild
                     key={product.id}
-                    data={product}
-                    activeOpacity={0.7}
-                    onPress={() => removeProduct(product.id)}
-                  />
+                    href={`/product/${product.id}`}
+                  >
+                    <Product
+                      data={product}
+                      activeOpacity={0.7}
+                      onMinusPress={() => removeProduct(product.id)}
+                      onPlusPress={() => addProduct(product)}
+                    />
+                  </Link>
                 ))}
               </View>
             ) : (

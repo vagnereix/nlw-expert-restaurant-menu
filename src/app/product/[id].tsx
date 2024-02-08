@@ -63,7 +63,7 @@ export default function ProductScreen({}) {
           <Button.Text>Adicionar ao carrinho</Button.Text>
         </Button>
 
-        <LinkButton title='Voltar' href='/' />
+        <LinkButton title='Voltar' href='..' />
       </View>
     </View>
   );
