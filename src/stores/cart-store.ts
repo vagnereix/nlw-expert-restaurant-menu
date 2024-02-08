@@ -1,5 +1,6 @@
 import { ProductProps } from '@/lib/data/products';
 import { create } from 'zustand';
+import { addProduct, removeProduct } from './actions/cart-actions';
 
 export type ProductCartProps = ProductProps & {
   quantity: number;
@@ -14,31 +15,9 @@ type StateProps = {
 export const useCartStore = create<StateProps>((set) => ({
   products: [],
   add: (product) => {
-    set((state) => {
-      const productIndex = state.products.findIndex((p) => p.id === product.id);
-
-      if (productIndex !== -1) {
-        state.products[productIndex].quantity += 1;
-        return { products: state.products };
-      }
-
-      return { products: [...state.products, { ...product, quantity: 1 }] };
-    });
+    set((state) => addProduct(state.products, product));
   },
   remove: (id) => {
-    set((state) => {
-      const productIndex = state.products.findIndex((p) => p.id === id);
-
-      if (productIndex !== -1) {
-        state.products[productIndex].quantity -= 1;
-        if (state.products[productIndex].quantity === 0) {
-          state.products.splice(productIndex, 1);
-        }
-
-        return { products: state.products };
-      }
-
-      return { products: state.products };
-    });
+    set((state) => removeProduct(state.products, id));
   },
 }));
