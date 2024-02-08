@@ -1,12 +1,13 @@
-<h4 align="center">
- 🚀 NLW Expert 🚀
-</h4>
+<h1 align="center">
+ NLW Expert 👨🏼‍🚀
+</h1>
 
 <p align="center">
-  <a href="#--sobre-o-projeto">Sobre</a> •
-  <a href="#--funcionalidades">Funcionalidades</a> •
-  <a href="#--layout">Layout</a> •
-  <a href="#--tecnologias">Tecnologias</a> 
+  <a href="#-sobre-o-projeto">Sobre</a> •
+  <a href="#-funcionalidades">Funcionalidades</a> •
+  <a href="#-rodando-a-aplicação">Rodando a aplicação</a> •
+  <a href="#-layout">Layout</a> •
+  <a href="#-tecnologias">Tecnologias</a> 
 </p>
 
 <br/>
@@ -56,7 +57,7 @@ Você pode visualizar o layout do projeto através [desse link](<https://www.fig
 
 ---
 
-## [](https://github.com/frantecbh/NLW-Setup-ignite#--tecnologias) 🛠 Tecnologias
+## 🚀 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
