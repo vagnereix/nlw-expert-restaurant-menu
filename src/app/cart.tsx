@@ -8,7 +8,7 @@ import { ProductCartProps, useCartStore } from '@/stores/cart-store';
 import { Feather } from '@expo/vector-icons';
 import { Link, useNavigation } from 'expo-router';
 import { useState } from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { Alert, Linking, ScrollView, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Cart() {
@@ -58,10 +58,12 @@ export default function Cart() {
     const message = `🍔 *Novo pedido de compra:*
       \nOlá, gostaria de fazer um pedido com os seguintes itens: ${finalProducts}
       \nEndereço de entrega: *${address}*
-      \nTotal do pedido: *${total}*
-    `;
+      \nTotal do pedido: *${total}*`;
 
-    Alert.alert('Pedido', message);
+    Linking.openURL(
+      `https://wa.me/${process.env.EXPO_PUBLIC_PHONE_NUMBER}?text=${message}`
+    );
+
     clearCartProducts();
     goBack();
   }
