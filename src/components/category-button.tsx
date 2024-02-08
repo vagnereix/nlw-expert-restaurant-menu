@@ -15,7 +15,7 @@ export function CategoryButton({
     <Pressable
       className={cn(
         'bg-slate-800 px-4 justify-center rounded-md h-10',
-        isSelected && 'border border-lime-300'
+        isSelected && 'border-2 border-lime-300'
       )}
       {...pressableProps}
     >
