@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
 import { Image, Text, View } from 'react-native';
 import { PRODUCTS } from '../../../utils/data/products';
 import { formatCurrency } from '@/lib/fomatters';
@@ -19,6 +19,10 @@ export default function ProductScreen({}) {
     goBack();
   }
 
+  if (!product) {
+    return <Redirect href='/' />;
+  }
+
   return (
     <View className='flex-1'>
       <Image
@@ -28,6 +32,10 @@ export default function ProductScreen({}) {
       />
 
       <View className='p-5 mt-8 flex-1'>
+        <Text className='text-white text-xl font-heading'>
+          {product?.title}
+        </Text>
+
         <Text className='text-lime-400 text-2xl font-heading my-2'>
           {formatCurrency(product?.price as number)}
         </Text>
