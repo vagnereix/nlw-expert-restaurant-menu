@@ -36,6 +36,7 @@ export default function App() {
         horizontal
         data={CATEGORIES}
         className='mt-5 max-h-10'
+        showsHorizontalScrollIndicator={false}
         keyExtractor={(categoryName) => categoryName}
         contentContainerStyle={{ paddingHorizontal: 20, gap: 12 }}
         renderItem={({ item }) => (
