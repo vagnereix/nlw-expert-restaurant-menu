@@ -6,16 +6,18 @@ import { Product } from '@/components/product';
 import { formatCurrency } from '@/lib/fomatters';
 import { ProductCartProps, useCartStore } from '@/stores/cart-store';
 import { Feather } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
+import { useState } from 'react';
 import { Alert, ScrollView, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Cart() {
-  const [products, removeProduct, addProduct] = useCartStore((state) => [
-    state.products,
-    state.remove,
-    state.add,
-  ]);
+  const [address, setAddress] = useState('');
+
+  const { goBack } = useNavigation();
+  const [products, removeProduct, addProduct, clearCartProducts] = useCartStore(
+    (state) => [state.products, state.remove, state.add, state.clear]
+  );
 
   const total = formatCurrency(
     products.reduce((acc, product) => acc + product.price, 0)
@@ -39,6 +41,29 @@ export default function Cart() {
         },
       ]
     );
+  }
+
+  function handleOrder() {
+    if (!address) {
+      return Alert.alert(
+        'Atenção',
+        'Por favor, informe o endereço de entrega.'
+      );
+    }
+
+    const finalProducts = products
+      .map((product) => `\n😋 *${product.quantity} ${product.title}*`)
+      .join('');
+
+    const message = `🍔 *Novo pedido de compra:*
+      \nOlá, gostaria de fazer um pedido com os seguintes itens: ${finalProducts}
+      \nEndereço de entrega: *${address}*
+      \nTotal do pedido: *${total}*
+    `;
+
+    Alert.alert('Pedido', message);
+    clearCartProducts();
+    goBack();
   }
 
   return (
@@ -78,13 +103,19 @@ export default function Cart() {
               </Text>
             </View>
 
-            <Input placeholder='Informe o endereço de entrega incluindo rua, bairro, número e complemento...' />
+            <Input
+              blurOnSubmit
+              returnKeyType='go'
+              onChangeText={setAddress}
+              onSubmitEditing={handleOrder}
+              placeholder='Informe o endereço de entrega incluindo rua, bairro, número e complemento...'
+            />
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
 
       <View className='p-5 gap-5'>
-        <Button>
+        <Button onPress={handleOrder}>
           <Button.Text>Enviar pedido</Button.Text>
 
           <Button.Icon>

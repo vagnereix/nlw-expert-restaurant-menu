@@ -12,6 +12,7 @@ type StateProps = {
   products: ProductCartProps[];
   add: (product: ProductProps) => void;
   remove: (id: string) => void;
+  clear: () => void;
 };
 
 export const useCartStore = create(
@@ -24,6 +25,7 @@ export const useCartStore = create(
       remove: (id) => {
         set((state) => removeProduct(state.products, id));
       },
+      clear: () => set({ products: [] }),
     }),
     {
       name: '@nlw.expert:restaurant.menu:cart',
