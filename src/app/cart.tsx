@@ -4,15 +4,13 @@ import { Input } from '@/components/input';
 import { LinkButton } from '@/components/link-button';
 import { Product } from '@/components/product';
 import { formatCurrency } from '@/lib/fomatters';
-import { useCartStore } from '@/stores/cart-store';
+import { ProductCartProps, useCartStore } from '@/stores/cart-store';
 import { Feather } from '@expo/vector-icons';
-import { Link, useNavigation } from 'expo-router';
-import { ScrollView, Text, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function Cart() {
-  const { navigate } = useNavigation();
-
   const [products, removeProduct, addProduct] = useCartStore((state) => [
     state.products,
     state.remove,
@@ -22,6 +20,26 @@ export default function Cart() {
   const total = formatCurrency(
     products.reduce((acc, product) => acc + product.price, 0)
   );
+
+  function handleRemoveProduct(product: ProductCartProps) {
+    if (product.quantity !== 1) return removeProduct(product.id);
+
+    Alert.alert(
+      'Remover',
+      `Deseja remover o produto ${product.title} do carrinho?`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          isPreferred: true,
+        },
+        {
+          text: 'Remover',
+          onPress: () => removeProduct(product.id),
+        },
+      ]
+    );
+  }
 
   return (
     <View className='flex-1 pt-8 bg-slate-900'>
@@ -41,7 +59,7 @@ export default function Cart() {
                     <Product
                       data={product}
                       activeOpacity={0.7}
-                      onMinusPress={() => removeProduct(product.id)}
+                      onMinusPress={() => handleRemoveProduct(product)}
                       onPlusPress={() => addProduct(product)}
                     />
                   </Link>
