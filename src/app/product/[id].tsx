@@ -8,7 +8,7 @@ import { LinkButton } from '@/components/link-button';
 import { ProductCartProps, useCartStore } from '@/stores/cart-store';
 
 export default function ProductScreen({}) {
-  const { add } = useCartStore();
+  const add = useCartStore((state) => state.add);
   const { navigate, goBack } = useNavigation();
   const { id } = useLocalSearchParams();
 
