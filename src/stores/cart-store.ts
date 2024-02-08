@@ -1,5 +1,5 @@
+import { ProductProps } from '@/lib/data/products';
 import { create } from 'zustand';
-import { ProductProps } from '../../utils/data/products';
 
 export type ProductCartProps = ProductProps & {
   quantity: number;

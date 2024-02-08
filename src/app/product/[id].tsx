@@ -1,6 +1,6 @@
 import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router';
 import { Image, Text, View } from 'react-native';
-import { PRODUCTS } from '../../../utils/data/products';
+import { PRODUCTS } from '@/lib/data/products';
 import { formatCurrency } from '@/lib/fomatters';
 import { Button } from '@/components/button';
 import { Feather } from '@expo/vector-icons';

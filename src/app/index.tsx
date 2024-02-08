@@ -2,7 +2,7 @@ import { CategoryButton } from '@/components/category-button';
 import { Header } from '@/components/header';
 import { useMemo, useRef, useState } from 'react';
 import { FlatList, SectionList, Text, View } from 'react-native';
-import { CATEGORIES, MENU, ProductProps } from '../../utils/data/products';
+import { CATEGORIES, MENU, ProductProps } from '@/lib/data/products';
 import { Product } from '@/components/product';
 import { Link } from 'expo-router';
 import { useCartStore } from '@/stores/cart-store';
